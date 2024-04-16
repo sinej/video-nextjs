@@ -1,3 +1,5 @@
+'use client'
+
 import React, {useState} from 'react';
 import {usePathname, useRouter} from "next/navigation";
 import Link from "next/link";
@@ -48,22 +50,22 @@ const TopNav = () => {
                                 <BiSearch size={22} color={"#A1A2A7"}/>
                             </div>
                         </div>
-                        <div className="absolute bg-white max-w-[910px] h-auto w-full z-20 left-0 top-12 border p-1">
-                            <div className="p-1">
-                            <Link href={`/profile/1`}
-                                      className="flex items-center justify-between w-full cursor-pointer hover:bg-[#F12B56] p-1 px-2"
-                                >
-                                    <div className="flex items-center">
-                                        <img src="https://placehold.co/40"
-                                             alt=""
-                                             className="rounded-md"
-                                             width={40}
-                                        />
-                                        <div className="truncate ml-2">John Weeks Dev</div>
-                                    </div>
-                                </Link>
-                            </div>
-                        </div>
+                        {/*<div className="absolute bg-white max-w-[910px] h-auto w-full z-20 left-0 top-12 border p-1">*/}
+                        {/*    <div className="p-1">*/}
+                        {/*    <Link href={`/profile/1`}*/}
+                        {/*              className="flex items-center justify-between w-full cursor-pointer hover:bg-[#F12B56] p-1 px-2"*/}
+                        {/*        >*/}
+                        {/*            <div className="flex items-center">*/}
+                        {/*                <img src="https://placehold.co/40"*/}
+                        {/*                     alt=""*/}
+                        {/*                     className="rounded-md"*/}
+                        {/*                     width={40}*/}
+                        {/*                />*/}
+                        {/*                <div className="truncate ml-2">John Weeks Dev</div>*/}
+                        {/*            </div>*/}
+                        {/*        </Link>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
 
                     <div className="flex items-center gap-3">
