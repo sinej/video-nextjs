@@ -15,7 +15,7 @@ const PostMainLikes = (props: PostMainLikesCompTypes) => {
     const handleLike = (id: string) => {
         console.log("like");
         setUserLiked(!userLiked);
-        setLikes(likes.push(id))
+        // setLikes(likes.push(id))
     }
 
     return (
