@@ -103,12 +103,6 @@ const Profile = (props: ProfilePageTypes) => {
                                 video_url: '/184734-873923034_tiny.mp4',
                                 text: 'this is some text',
                                 created_at: 'date here',
-                                tags: ['#fun', '#cool', '#SuperAwesome'],
-                                profile: {
-                                    user_id: '456',
-                                    name: 'User 1',
-                                    image: 'https://placeholder.co/100',
-                                }
                             }} />
                         </div>
                     </ClientOnly>
