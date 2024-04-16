@@ -2,6 +2,7 @@ import React from 'react';
 import {FollowItemCompTypes} from "@/app/types/type";
 import Link from 'next/link';
 import {AiOutlineCheck} from "react-icons/ai";
+import Image from "next/image";
 
 const FollowItemMenu = (props: FollowItemCompTypes) => {
     const { user } = props;
@@ -10,10 +11,10 @@ const FollowItemMenu = (props: FollowItemCompTypes) => {
             <Link href={`/profile/${user?.id}`}
                   className="flex items-center hover:bg-gray-100 rounded-md w-full py-1.5 px-2"
             >
-                <img src={user?.image}
-                     alt={user?.name}
-                     width={"35"}
-                     className="rounded-full lg:mx-0 mx-auto"
+                <Image src={user?.image}
+                       alt={user?.name}
+                       width={"35"}
+                       className="rounded-full lg:mx-0 mx-auto"
                 />
                 <div className="lg:pl-2.5 lg:block hidden">
                     <div className="flex items-center">

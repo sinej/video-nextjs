@@ -16,7 +16,6 @@ const Upload = () => {
     const [isUploading, setIsUploading] = useState<boolean>(false);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        e.stopPropagation();
         const files = event.target.files;
 
         if(files && files.length > 0) {

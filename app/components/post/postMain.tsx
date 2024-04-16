@@ -7,12 +7,13 @@ import {Button} from "@/components/ui/button";
 import {ImMusic} from "react-icons/im";
 import {AiFillHeart} from "react-icons/ai";
 import PostMainLikes from "@/app/components/post/postMainLikes";
+import Image from "next/image";
 
 const PostMain = (props: PostMainCompTypes) => {
     const { post } = props;
 
     useEffect(() => {
-        const video = document.getElementById(`video-${post.id}`) as HTMLVideoElement;
+        const video = document.getElementById(`video-${post?.id}`) as HTMLVideoElement;
         const postMainElement = document.getElementById(`postMain-${post?.id}`);
 
         if(postMainElement) {
@@ -31,10 +32,10 @@ const PostMain = (props: PostMainCompTypes) => {
                  className="flex border-b py-6"
             >
                 <div className="cursor-pointer">
-                    <img src={post?.profile?.image}
-                         alt={post?.profile?.name}
-                         className="rounded-full max-h-[60px]"
-                         width="60"
+                    <Image src={post?.profile?.image}
+                           alt={post?.profile?.name}
+                           className="rounded-full max-h-[60px]"
+                           width="60"
                     />
                 </div>
                 <div className="pl-3 w-full px-4">
@@ -48,9 +49,9 @@ const PostMain = (props: PostMainCompTypes) => {
                             팔로우
                         </Button>
                     </div>
-                    <p className="text-[15px] pb-0.5 break-words md:max-w-[400px] max-w-[300px]">{post.text}</p>
+                    <p className="text-[15px] pb-0.5 break-words md:max-w-[400px] max-w-[300px]">{post?.text}</p>
                     <div className="flex items-center pb-0.5 md:max-w-[400px] max-w-[300px]">
-                    {post.tags.map((tag: any, index: number) =>
+                    {post?.tags.map((tag: any, index: number) =>
                         <p className="text-[15px] break-words"
                            key={index}
                         >{tag}</p>
@@ -64,18 +65,18 @@ const PostMain = (props: PostMainCompTypes) => {
 
                     <div className="mt-2.5 flex">
                         <div className="relative min-h-[480px] max-w-[260px] flex items-center bg-black rounded-xl cursor-pointer">
-                            <video id={`video-${post.id}`}
+                            <video id={`video-${post?.id}`}
                                    loop
                                    controls
                                    muted
                                    className="rounded-xl object-cover mx-auto h-full"
-                                   src={post.video_url}
+                                   src={post?.video_url}
                             />
-                            <img src="/images/logo_b.svg"
-                                 width="80"
-                                 className="absolute right-3 bottom-4"
-                                 alt="logo"
-                                 color="black"
+                            <Image src="/images/logo_b.svg"
+                                   width="80"
+                                   className="absolute right-3 bottom-4"
+                                   alt="logo"
+                                   color="black"
                             />
                         </div>
 

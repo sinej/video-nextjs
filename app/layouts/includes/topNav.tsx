@@ -17,6 +17,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {FiLogOut} from "react-icons/fi";
+import Image from "next/image";
 
 const TopNav = () => {
     const router = useRouter();
@@ -31,9 +32,9 @@ const TopNav = () => {
                 <div className={`flex items-center justify-between gap-6 w-full px-4 mx-auto ${pathname === '/' ? `max-w-[1150px]` : ``}`}>
                     {/* logo */}
                     <Link href="/">
-                        <img src="/images/logo_b.svg"
-                             alt="logo"
-                             className="min-w-[115px] w-[115px]"
+                        <Image src="/images/logo_b.svg"
+                               alt="logo"
+                               className="min-w-[115px] w-[115px]"
                         />
                     </Link>
                     {/**/}
