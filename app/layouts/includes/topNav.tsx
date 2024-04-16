@@ -20,12 +20,12 @@ import {FiLogOut} from "react-icons/fi";
 import Image from "next/image";
 
 const TopNav = () => {
-    const router = useRouter();
+    const { push } = useRouter();
     const pathname = usePathname();
     const [isLogin, setIsLogin] = useState(true);
 
     const handleSearch = (e: React.MouseEvent<HTMLDivElement>) => console.log("e.currentTarget.value", e.currentTarget);
-    const handleGo = (e: React.MouseEvent<HTMLButtonElement>) => console.log("here")
+    const handleGo = (e: React.MouseEvent<HTMLButtonElement>) => push('/upload')
     return (
         <>
             <div id="TopNav" className="fixed bg-white z-30 flex items-center w-full border-b h-[60px]">
@@ -35,6 +35,8 @@ const TopNav = () => {
                         <Image src="/images/logo_b.svg"
                                alt="logo"
                                className="min-w-[115px] w-[115px]"
+                               width={115}
+                               height={52}
                         />
                     </Link>
                     {/**/}

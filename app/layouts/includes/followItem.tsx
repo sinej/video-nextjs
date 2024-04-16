@@ -13,7 +13,8 @@ const FollowItemMenu = (props: FollowItemCompTypes) => {
             >
                 <Image src={user?.image}
                        alt={user?.name}
-                       width={"35"}
+                       width={40}
+                       height={40}
                        className="rounded-full lg:mx-0 mx-auto"
                 />
                 <div className="lg:pl-2.5 lg:block hidden">

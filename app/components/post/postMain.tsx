@@ -35,7 +35,8 @@ const PostMain = (props: PostMainCompTypes) => {
                     <Image src={post?.profile?.image}
                            alt={post?.profile?.name}
                            className="rounded-full max-h-[60px]"
-                           width="60"
+                           width={60}
+                           height={60}
                     />
                 </div>
                 <div className="pl-3 w-full px-4">
@@ -73,10 +74,11 @@ const PostMain = (props: PostMainCompTypes) => {
                                    src={post?.video_url}
                             />
                             <Image src="/images/logo_b.svg"
-                                   width="80"
                                    className="absolute right-3 bottom-4"
                                    alt="logo"
                                    color="black"
+                                   width={100}
+                                   height={52}
                             />
                         </div>
 

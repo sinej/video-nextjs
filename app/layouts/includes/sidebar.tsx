@@ -45,7 +45,7 @@ const Sidebar = (props: Props) => {
                         <div className="lg:hidden block pt-3" />
                         <ClientOnly>
                             <div className="cursor-pointer">
-                                <FollowItemMenu user={{id: '1', name: 'Test User', image: 'https://placeholder.com/300'}} />
+                                <FollowItemMenu user={{id: '1', name: 'Test User', image: 'https://placeholder.co/300'}} />
                             </div>
                         </ClientOnly>
                         <Button variant="link"
@@ -63,7 +63,7 @@ const Sidebar = (props: Props) => {
                             <ClientOnly>
                                 <div className="cursor-pointer">
                                     <FollowItemMenu
-                                        user={{id: '1', name: 'Test User', image: 'https://placeholder.com/300'}}/>
+                                        user={{id: '1', name: 'Test User', image: 'https://placeholder.co/300'}}/>
                                 </div>
                             </ClientOnly>
                             <Button variant="link"
