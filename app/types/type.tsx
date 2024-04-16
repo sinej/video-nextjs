@@ -7,10 +7,29 @@ export interface RandomUsers {
     image: string;
 }
 
+export interface CropperDimensions {
+    height?: number | null;
+    width?: number | null;
+    left?: number | null;
+    top?: number | null;
+}
+
+export interface ShowErrorObject {
+    type: string;
+    message: string;
+}
+
 export interface Like {
     id: string;
     user_id: string;
     post_id: string;
+}
+export interface Post {
+    id: string;
+    user_id: string;
+    video_url: string;
+    text: string;
+    created_at: string;
 }
 export interface Comment {
     id: string;
@@ -48,6 +67,23 @@ export interface PostMainLikesCompTypes {
     post: PostWithProfile;
 }
 
+export interface PostPageTypes {
+    params: {
+        userId: string;
+        postId: string;
+    };
+}
+
+export interface PostUserComTypes {
+    post: Post;
+}
+
+export interface ProfilePageTypes {
+    params: { id: string; };
+}
+
+
+
 
 // LAYOUT INCLUDE TYPES
 export interface MenuItemsTypes {
@@ -59,4 +95,24 @@ export interface MenuItemsTypes {
 export interface FollowItemCompTypes {
     user: RandomUsers;
 }
+
+export interface FormTextInputCompTypes {
+    string: string;
+    inputType: string;
+    placeholder: string;
+    error: string;
+    onUpdate: (newValue: string) => void;
+}
+
+export interface FormTextareaCompTypes {
+    name: string;
+    id: string;
+    cols: number;
+    rows: number;
+    onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+    value: string;
+    maxLength: number;
+    className: string;
+}
+
 
