@@ -32,7 +32,6 @@ const TopNav = () => {
         setIsEditProfileOpen(false);
     }, []);
 
-    console.log("contextUser", contextUser)
     const handleSearch = (e: React.MouseEvent<HTMLDivElement>) => console.log("e.currentTarget.value", e.currentTarget);
     const handleGo = (e: React.MouseEvent<HTMLButtonElement>) => {
         if(!contextUser?.user) return setIsLoginOpen(true);

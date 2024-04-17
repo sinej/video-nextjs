@@ -1,6 +1,6 @@
-import {database, Query} from "@/libs/appWriteClient";
+import { database, Query } from "@/libs/appWriteClient"
 
-const useGetRandomUsers = async () => {
+const UseGetRandomUsers = async () => {
     try {
         const profileResult = await database.listDocuments(
             String(process.env.NEXT_PUBLIC_DATABASE_ID),
@@ -8,25 +8,22 @@ const useGetRandomUsers = async () => {
             [
                 Query.limit(5)
             ]
-
-        )
-
-        const documents = profileResult.documents;
+        );
+        const documents = profileResult.documents
 
         const objPromises = documents.map(profile => {
             return {
                 id: profile?.user_id,
                 name: profile?.name,
-                image: profile?.image
+                image: profile?.image,
             }
         })
-        const result = await Promise.all(objPromises);
-        return result;
 
-
+        const result = await Promise.all(objPromises)
+        return result
     } catch (error) {
-        throw error;
+        console.log(error)
     }
 }
 
-export default useGetRandomUsers;
+export default UseGetRandomUsers;

@@ -12,7 +12,6 @@ import EditProfileOverlay from "@/app/components/profile/editProfileOverlay";
 const Profile = (props: ProfilePageTypes) => {
     const { params } = props;
 
-    const [editOverlay, setEditOverlay] = useState<boolean>(false);
     const currentProfile = {
         id: '123',
         user_id: '123',
@@ -21,19 +20,15 @@ const Profile = (props: ProfilePageTypes) => {
         bio: 'this is the bio section!!'
     }
 
-    const handleEditProfileClose = () => {
-        setEditOverlay(false);
-    }
-
     return (
         <>
             <MainLayout>
 
-                {editOverlay &&
-                    <ClientOnly>
-                        <EditProfileOverlay handleEditProfileClose={handleEditProfileClose} />
-                    </ClientOnly>
-                }
+                {/*{editOverlay &&*/}
+                {/*    <ClientOnly>*/}
+                {/*        <EditProfileOverlay />*/}
+                {/*    </ClientOnly>*/}
+                {/*}*/}
                 <div className="pt-[90px] ml-[90px] 2xl:pl-[185px] lg:pl-[160px] lg:pr-0 w-[calc(100%-90px)] pr-3 max-w-[1800px] 2xl:mx-auto">
                     <div className="flex w-[calc(100vw-230px)]">
                         <ClientOnly>
@@ -60,7 +55,7 @@ const Profile = (props: ProfilePageTypes) => {
                             {true ? (
                                 <Button variant="outline"
                                         className="flex items-center rounded-md py-1.5 px-3.5 mt-3 text-[15px] font-semibold border hover:bg-gray-100"
-                                        onClick={() => setEditOverlay(true)}
+                                        // onClick={() => setEditOverlay(true)}
                                 >
                                     <BsPencil className="mt-0.5 mr-1" size={18} />
                                     <span>프로필 수정</span>

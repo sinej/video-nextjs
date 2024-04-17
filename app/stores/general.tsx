@@ -2,9 +2,9 @@ import { create } from "zustand";
 
 import { persist, devtools, createJSONStorage } from "zustand/middleware";
 import {GeneralStore} from "@/app/types/general.type";
-import useGetRandomUsers from "@/app/components/hooks/useGetRandomUsers";
+import UseGetRandomUsers from "@/app/components/hooks/useGetRandomUsers";
 
-export const useGeneralStore = create<GeneralStore>() (
+export const useGeneralStore = create<GeneralStore>()(
     devtools(
         persist(
             (set) => ({
@@ -15,9 +15,9 @@ export const useGeneralStore = create<GeneralStore>() (
                 setIsLoginOpen: (val: boolean) => set({ isLoginOpen: val }),
                 setIsEditProfileOpen: (val: boolean) => set({ isEditProfileOpen: val }),
                 setRandomUsers: async () => {
-                    const result = await useGetRandomUsers()
+                    const result = await UseGetRandomUsers()
                     set({ randomUsers: result })
-                }
+                },
             }),
             {
                 name: 'store',

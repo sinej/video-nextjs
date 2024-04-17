@@ -10,13 +10,13 @@ import {BsPencil} from "react-icons/bs";
 import TextInput from "@/app/components/form/textInput";
 import Textarea from "@/app/components/form/textarea";
 import {BiLoaderCircle} from "react-icons/bi";
+//
+// interface Props {
+//     handleEditProfileClose: () => void;
+// };
 
-interface Props {
-    handleEditProfileClose: () => void;
-};
-
-const EditProfileOverlay = (props: Props) => {
-    const { handleEditProfileClose } = props;
+const EditProfileOverlay = () => {
+    // const { handleEditProfileClose } = props;
     const { push } = useRouter();
     const [file, setFile] = useState<File | null>(null);
     const [cropper, setCropper] = useState<CropperDimensions | null>(null);
@@ -29,7 +29,6 @@ const EditProfileOverlay = (props: Props) => {
 
     const handleUploadedProfileImage = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files && event.target.files[0];
-        console.log("selectedFile", selectedFile)
 
         if (selectedFile) {
             setFile(selectedFile);
@@ -66,7 +65,7 @@ const EditProfileOverlay = (props: Props) => {
                         <Button variant="link"
                                 size="icon"
                                 disabled={isUpdating}
-                                onClick={() => handleEditProfileClose()}
+                                // onClick={() => handleEditProfileClose()}
                         >
                             <AiOutlineClose size={25} />
                         </Button>
@@ -166,7 +165,7 @@ const EditProfileOverlay = (props: Props) => {
                             >
                                 <Button variant="outline"
                                         disabled={isUpdating}
-                                        onClick={() => handleEditProfileClose()}
+                                        // onClick={() => handleEditProfileClose()}
                                         className="flex items-center border rounded-sm px-3 py-[6px] hover:bg-gray-100"
                                 >
                                     <span className="px-2 font-medium text-[15px]">취소</span>
