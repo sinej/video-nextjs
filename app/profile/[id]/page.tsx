@@ -1,14 +1,13 @@
 'use client'
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {ProfilePageTypes} from "@/app/types/type";
 import MainLayout from "@/app/layouts/mainLayout";
 import ClientOnly from "@/app/components/clientOnly";
 import {Button} from "@/components/ui/button";
 import {BsPencil} from "react-icons/bs";
 import PostUser from "@/app/components/profile/postUser";
-import EditProfileOverlay from "@/app/components/profile/editProfileOverlay";
-import {useUser} from "@/app/context/user";
+import {UseUser} from "@/app/context/user";
 import {usePostStore} from "@/app/stores/post";
 import {useProfileStore} from "@/app/stores/profile";
 import {useGeneralStore} from "@/app/stores/general";
@@ -17,7 +16,7 @@ import UseCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
 const Profile = (props: ProfilePageTypes) => {
     const { params } = props;
 
-    const contextUser = useUser();
+    const contextUser = UseUser();
     let { postsByUser, setPostsByUser } = usePostStore();
     let { setCurrentProfile, currentProfile } = useProfileStore();
     let { isEditProfileOpen, setIsEditProfileOpen } = useGeneralStore();
@@ -56,7 +55,7 @@ const Profile = (props: ProfilePageTypes) => {
                             {contextUser?.user?.id === params?.id ? (
                                 <Button variant="outline"
                                         className="flex items-center rounded-md py-1.5 px-3.5 mt-3 text-[15px] font-semibold border hover:bg-gray-100"
-                                        onClick={() => setIsEditProfileOpen(isEditProfileOpen !== isEditProfileOpen)}
+                                        onClick={() => setIsEditProfileOpen(!isEditProfileOpen)}
                                 >
                                     <BsPencil className="mt-0.5 mr-1" size={18} />
                                     <span>프로필 수정</span>

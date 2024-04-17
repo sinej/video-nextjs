@@ -1,11 +1,11 @@
 import {database, ID, storage} from "@/libs/appWriteClient";
 
-const UseCreateLike = async (file: File, userId: string, caption: string) => {
+const UseCreatePost = async (file: File, userId: string, caption: string) => {
     const videoId = Math.random().toString(36).slice(2, 22);
     try {
         await database.createDocument(
             String(process.env.NEXT_PUBLIC_DATABASE_ID),
-            String(process.env.NEXT_PUBLIC_COLLECTION_ID_LIKE),
+            String(process.env.NEXT_PUBLIC_COLLECTION_ID_POST),
             ID.unique(),
             {
                 user_id: userId,
@@ -25,4 +25,4 @@ const UseCreateLike = async (file: File, userId: string, caption: string) => {
     }
 
 }
-export default UseCreateLike;
+export default UseCreatePost;

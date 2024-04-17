@@ -1,17 +1,15 @@
-'use client'
-
 import React, {useState} from 'react';
 import {ShowErrorObject} from "@/app/types/type";
 import TextInput from "@/app/components/form/textInput";
 import {BiLoaderCircle} from "react-icons/bi";
-import {useUser} from "@/app/context/user";
+import {UseUser} from "@/app/context/user";
 import {useRouter} from "next/navigation";
 import {useGeneralStore} from "@/app/stores/general";
 
 const Login = () => {
 
     let { setIsLoginOpen } = useGeneralStore();
-    const contextUser = useUser();
+    const contextUser = UseUser();
     const { refresh } = useRouter();
 
     const [loading, setLoading] = useState<boolean>(false);

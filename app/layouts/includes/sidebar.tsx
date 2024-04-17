@@ -9,12 +9,12 @@ import ClientOnly from "@/app/components/clientOnly";
 import FollowItemMenu from "@/app/layouts/includes/followItem";
 import {Button} from "@/components/ui/button";
 import {useGeneralStore} from "@/app/stores/general";
-import {useUser} from "@/app/context/user";
+import {UseUser} from "@/app/context/user";
 
 const Sidebar = () => {
     const pathname = usePathname();
     let { setRandomUsers, randomUsers } = useGeneralStore();
-    const contextUser = useUser();
+    const contextUser = UseUser();
 
     useEffect(() => {
         setRandomUsers()

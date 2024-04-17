@@ -5,16 +5,13 @@ import {useRouter} from "next/navigation";
 import {UploadError} from "@/app/types/type";
 import UploadLayout from "@/app/layouts/uploadLayout";
 import {BiLoaderCircle, BiSolidCloudUpload} from "react-icons/bi";
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {AiOutlineCheckCircle} from "react-icons/ai";
 import {PiKnifeLight} from "react-icons/pi";
 import {Button} from "@/components/ui/button";
-import {useUser} from "@/app/context/user";
-import {validate} from "json-schema";
+import {UseUser} from "@/app/context/user";
 import UseCreatePost from "@/app/hooks/useCreatePost";
 const Upload = () => {
-    const contextUser = useUser();
+    const contextUser = UseUser();
     const { push } = useRouter();
 
     const [fileDisplay, setFileDisplay] = useState<string>('');

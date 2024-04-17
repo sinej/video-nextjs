@@ -1,5 +1,4 @@
-'use client'
-
+import React from "react";
 import {usePathname} from "next/navigation";
 import TopNav from "@/app/layouts/includes/topNav";
 import Sidebar from "@/app/layouts/includes/sidebar";

@@ -1,10 +1,7 @@
-'use client'
-
-import {usePathname} from "next/navigation";
+import React from "react";
 import TopNav from "@/app/layouts/includes/topNav";
 
 const UploadLayout = ({ children }: { children: React.ReactNode }) => {
-    const pathname = usePathname();
 
     return (
         <>

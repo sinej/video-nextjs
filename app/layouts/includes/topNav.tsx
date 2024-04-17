@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {FiLogOut} from "react-icons/fi";
 import Image from "next/image";
-import {useUser} from "@/app/context/user";
+import {UseUser} from "@/app/context/user";
 import {useGeneralStore} from "@/app/stores/general";
 import debounce from "debounce";
 import {RandomUsers} from "@/app/types/type";
@@ -26,7 +26,7 @@ import UseSearchProfilesByName from "@/app/hooks/useSearchProfilesByName";
 import UseCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
 
 const TopNav = () => {
-    const contextUser = useUser();
+    const contextUser = UseUser();
     const { push } = useRouter();
     const pathname = usePathname();
     const [searchProfiles, setSearchProfiles] = useState<RandomUsers[]>([]);
@@ -50,6 +50,7 @@ const TopNav = () => {
         }
     }, 500);
     const handleGo = (e: React.MouseEvent<HTMLButtonElement>) => {
+        console.log("contextUser?.user", contextUser?.user)
         if(!contextUser?.user) return setIsLoginOpen(true);
         push('/upload')
     }

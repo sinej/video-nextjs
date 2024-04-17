@@ -1,6 +1,6 @@
 import { database } from "@/libs/appWriteClient"
 
-const useUpdateProfileImage = async (id: string, image: string) => {
+const UseUpdateProfileImage = async (id: string, image: string) => {
     try {
         await database.updateDocument(
             String(process.env.NEXT_PUBLIC_DATABASE_ID),
@@ -10,8 +10,9 @@ const useUpdateProfileImage = async (id: string, image: string) => {
                 image: image
             })
     } catch (error) {
+        console.log("error", error);
         throw error
     }
 }
 
-export default useUpdateProfileImage
+export default UseUpdateProfileImage

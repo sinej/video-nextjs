@@ -13,7 +13,7 @@ import {AiFillHeart} from "react-icons/ai";
 import {useLikeStore} from "@/app/stores/like";
 import {useCommentStore} from "@/app/stores/comment";
 import {useGeneralStore} from "@/app/stores/general";
-import {useUser} from "@/app/context/user";
+import {UseUser} from "@/app/context/user";
 import UseIsLiked from "@/app/hooks/useIsLiked";
 import UseCreateLike from "@/app/hooks/useCreateLike";
 import UseDeleteLike from "@/app/hooks/useDeleteLike";
@@ -28,7 +28,7 @@ const CommentsHeader = (props: CommentsHeaderCompTypes) => {
     let { setIsLoginOpen } = useGeneralStore();
 
     const { push } = useRouter();
-    const contextUser = useUser();
+    const contextUser = UseUser();
 
     const [hasClickedLike, setHasClickedLike] = useState<boolean>(false);
     const [isDeleting, setIsDeleting] = useState<boolean>(false);

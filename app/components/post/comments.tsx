@@ -1,6 +1,6 @@
 import { useState } from "react"
 import SingleComment from "@/app/components/post/singleComment"
-import { useUser } from "@/app/context/user"
+import { UseUser } from "@/app/context/user"
 import { BiLoaderCircle } from "react-icons/bi"
 import { useCommentStore } from "@/app/stores/comment"
 import UseCreateComment from '@/app/hooks/useCreateComment'
@@ -13,7 +13,7 @@ export default function Comments({ params }: CommentsCompTypes) {
     let { commentsByPost, setCommentsByPost } = useCommentStore()
     let { setIsLoginOpen } = useGeneralStore()
 
-    const contextUser = useUser()
+    const contextUser = UseUser()
     const [comment, setComment] = useState<string>('')
     const [inputFocused, setInputFocused] = useState<boolean>(false)
     const [isUploading, setIsUploading] = useState<boolean>(false)

@@ -12,7 +12,7 @@ import Textarea from "@/app/components/form/textarea";
 import {BiLoaderCircle} from "react-icons/bi";
 import {useProfileStore} from "@/app/stores/profile";
 import {useGeneralStore} from "@/app/stores/general";
-import {useUser} from "@/app/context/user";
+import {UseUser} from "@/app/context/user";
 import UseUpdateProfile from "@/app/hooks/useUpdateProfile";
 import UseChangeUserImage from "@/app/hooks/useChangeUserImage";
 import UseUpdateProfileImage from "@/app/hooks/useUpdateProfileImage";
@@ -26,7 +26,7 @@ const EditProfileOverlay = () => {
 
     let { currentProfile, setCurrentProfile } = useProfileStore()
     let { setIsEditProfileOpen } = useGeneralStore();
-    const contextUser = useUser();
+    const contextUser = UseUser();
     const { refresh } = useRouter();
     const [file, setFile] = useState<File | null>(null);
     const [cropper, setCropper] = useState<CropperDimensions | null>(null);
@@ -96,7 +96,7 @@ const EditProfileOverlay = () => {
 
         try {
             if(!file) return alert("파일이 없습니다.");
-            if(cropper) return alert("파일이 없습니다.");
+            if(!cropper) return alert("파일이 없습니다.");
             setIsUpdating(true);
             const newImageId = await UseChangeUserImage(file, cropper, userImage);
             await UseUpdateProfileImage(currentProfile?.id || '', newImageId);

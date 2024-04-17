@@ -6,7 +6,7 @@ import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {BiLoaderCircle} from "react-icons/bi";
 import {BsTrash3} from "react-icons/bs";
-import {useUser} from "@/app/context/user";
+import {UseUser} from "@/app/context/user";
 import {useCommentStore} from "@/app/stores/comment";
 import UseDeleteComment from "@/app/hooks/useDeleteComment";
 import UseCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
@@ -15,7 +15,7 @@ import moment from "moment";
 const SingleComment = (props: SingleCommentsCompTypes) => {
     const { comment, params } = props;
 
-    const contextUser = useUser();
+    const contextUser = UseUser();
     let { setCommentsByPost } = useCommentStore();
 
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
