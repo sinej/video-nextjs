@@ -14,17 +14,16 @@ const PostMain = (props: PostMainCompTypes) => {
     const { post } = props;
 
     useEffect(() => {
-        const video = document.getElementById(`video-${post?.id}`) as HTMLVideoElement;
-        const postMainElement = document.getElementById(`postMain-${post?.id}`);
+        const video = document.getElementById(`video-${post?.id}`) as HTMLVideoElement
+        const postMainElement = document.getElementById(`PostMain-${post.id}`);
 
-        if(postMainElement) {
-            let observer = new IntersectionObserver(entries => {
+        if (postMainElement) {
+            let observer = new IntersectionObserver((entries) => {
                 entries[0].isIntersecting ? video.play() : video.pause()
-            }, { threshold: [0.6] })
+            }, { threshold: [0.6] });
 
             observer.observe(postMainElement);
         }
-
     }, [])
 
     return (
@@ -67,7 +66,7 @@ const PostMain = (props: PostMainCompTypes) => {
 
                     <div className="mt-2.5 flex">
                         <div className="relative min-h-[480px] max-w-[260px] flex items-center bg-black rounded-xl cursor-pointer">
-                            <video id={`video-${post?.id}`}
+                            <video id={`video-${post.id}`}
                                    loop
                                    controls
                                    muted

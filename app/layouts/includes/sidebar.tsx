@@ -33,12 +33,12 @@ const Sidebar = () => {
                         />
                     </Link>
                     <MenuItem iconString="팔로잉"
-                              icons={<RiGroupLine size={25} color={pathname === `/` ? `#F02C56` : ``}/>}
-                              colorString={pathname === `/` ? `#F02C56` : ``}
+                              icons={<RiGroupLine size={25} color={pathname === `/follow` ? `#F02C56` : ``}/>}
+                              colorString={pathname === `/follow` ? `#F02C56` : ``}
                     />
                     <MenuItem iconString="라이브"
-                              icons={<BsCameraVideo size={25} color={pathname === `/` ? `#F02C56` : ``}/>}
-                              colorString={pathname === `/` ? `#F02C56` : ``}
+                              icons={<BsCameraVideo size={25} color={pathname === `/live` ? `#F02C56` : ``}/>}
+                              colorString={pathname === `/live` ? `#F02C56` : ``}
                     />
                     {randomUsers?.length > 0 ? <div className="border-t lg:ml-2 mt-2">
                         <h3 className="lg:block hidden text-xs text-gray-600 font-semibold pt-4 pb-2 px-2">
