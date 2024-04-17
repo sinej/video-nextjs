@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {usePathname, useRouter} from "next/navigation";
 import Link from "next/link";
 import {BiSearch, BiUser} from "react-icons/bi";
@@ -18,14 +18,26 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {FiLogOut} from "react-icons/fi";
 import Image from "next/image";
+import {useUser} from "@/app/components/context/user";
+import {useGeneralStore} from "@/app/stores/general";
 
 const TopNav = () => {
+    const contextUser = useUser();
     const { push } = useRouter();
     const pathname = usePathname();
-    const [isLogin, setIsLogin] = useState(true);
+    const [searchProfiles, setSearchProfiles] = useState<boolean>(false);
+    let { setIsLoginOpen, setIsEditProfileOpen } = useGeneralStore();
 
+    useEffect(() => {
+        setIsEditProfileOpen(false);
+    }, []);
+
+    console.log("contextUser", contextUser)
     const handleSearch = (e: React.MouseEvent<HTMLDivElement>) => console.log("e.currentTarget.value", e.currentTarget);
-    const handleGo = (e: React.MouseEvent<HTMLButtonElement>) => push('/upload')
+    const handleGo = (e: React.MouseEvent<HTMLButtonElement>) => {
+        if(!contextUser?.user) return setIsLoginOpen(true);
+        push('/upload')
+    }
     return (
         <>
             <div id="TopNav" className="fixed bg-white z-30 flex items-center w-full border-b h-[60px]">
@@ -80,11 +92,12 @@ const TopNav = () => {
                             <span className="px-2 font-medium text-[15px]">업로드</span>
                         </Button>
 
-                        {!isLogin ? (
+                        {!contextUser?.user?.id ? (
                             <div className="flex items-center">
                                 <Button variant="destructive"
                                         className="whitespace-nowrap font-medium text-[15px] bg-[#F02C56] text-white border rounded-md px-8 py-[6px] flex items-center"
                                         color="#F02C56"
+                                        onClick={() => setIsLoginOpen(true)}
                                 >로그인</Button>
                                 <BsThreeDotsVertical size={25} color="#161724" />
                             </div>
@@ -102,7 +115,10 @@ const TopNav = () => {
                                             <span className="pl-2 font-semibold text-sm">프로필</span>
                                         </DropdownMenuLabel>
                                         <DropdownMenuSeparator />
-                                        <DropdownMenuItem>
+                                        <DropdownMenuItem onClick={async () => {
+                                            await contextUser?.logout();
+                                        }}
+                                        >
                                             <FiLogOut size={20}/>
                                             <span className="pl-2 text-sm">로그아웃</span></DropdownMenuItem>
                                     </DropdownMenuContent>
