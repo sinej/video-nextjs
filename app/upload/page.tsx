@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/navigation";
 import {UploadError} from "@/app/types/type";
 import UploadLayout from "@/app/layouts/uploadLayout";
@@ -10,7 +10,11 @@ import { Label } from "@/components/ui/label"
 import {AiOutlineCheckCircle} from "react-icons/ai";
 import {PiKnifeLight} from "react-icons/pi";
 import {Button} from "@/components/ui/button";
+import {useUser} from "@/app/context/user";
+import {validate} from "json-schema";
+import UseCreatePost from "@/app/hooks/useCreatePost";
 const Upload = () => {
+    const contextUser = useUser();
     const { push } = useRouter();
 
     const [fileDisplay, setFileDisplay] = useState<string>('');
@@ -18,6 +22,10 @@ const Upload = () => {
     const [file, setFile] = useState<File | null>(null);
     const [error, setError] = useState<UploadError | null>(null);
     const [isUploading, setIsUploading] = useState<boolean>(false);
+
+    useEffect(() => {
+        if(!contextUser?.user) push('/');
+    }, [contextUser]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
@@ -41,8 +49,36 @@ const Upload = () => {
         setCaption('')
     }
 
-    const createNewPost = () => {
-        console.log("new Post")
+    const validate = () => {
+        setError(null);
+        let isError = false;
+
+        if(!file) {
+            setError({ type: 'File', message: '동영상이 필요합니다.' });
+            isError = true;
+        } else if(!caption) {
+            setError({ type: 'caption', message: '동영상이 필요합니다.' });
+            isError = true;
+        }
+        return isError;
+    }
+
+    const createNewPost = async () => {
+        let isError = validate();
+        if(isError) return;
+        if(!file || !contextUser?.user) return;
+
+        setIsUploading(true);
+
+        try {
+            await UseCreatePost(file, contextUser?.user?.id, caption)
+            push(`/profile/${contextUser?.user?.id}`)
+            setIsUploading(false);
+        } catch (error) {
+            console.log("error", error);
+            setIsUploading(false);
+            alert(error);
+        }
     }
 
     return (

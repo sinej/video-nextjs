@@ -1,5 +1,5 @@
 'use client'
-import React from 'react';
+import React, {useEffect} from 'react';
 import {PostPageTypes} from "@/app/types/type";
 import Link from "next/link";
 import {AiOutlineClose} from "react-icons/ai";
@@ -9,32 +9,41 @@ import {useRouter} from "next/navigation";
 import ClientOnly from "@/app/components/clientOnly";
 import CommentsHeader from "@/app/components/post/commentsHeader";
 import Comments from "@/app/components/post/comments";
+import {usePostStore} from "@/app/stores/post";
+import {useLikeStore} from "@/app/stores/like";
+import {useCommentStore} from "@/app/stores/comment";
+import UseCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
 
 
 const Post = (props: PostPageTypes) => {
     const { params } = props;
+    let { postById, postsByUser, setPostById, setPostsByUser } = usePostStore();
+    let { setLikesByPost } = useLikeStore();
+    let { setCommentsByPost } = useCommentStore();
     const { push } = useRouter();
 
-    const postById = {
-        id: '123',
-        user_id: '456',
-        video_url: '/184734-873923034_tiny.mp4',
-        text: 'this is some text',
-        created_at: 'date here',
-        tags: ['#fun', '#cool', '#SuperAwesome'],
-        profile: {
-            user_id: '456',
-            name: 'User 1',
-            image: 'https://placeholder.co/100',
-        }
-    }
+    useEffect(() => {
+        setPostById(params.postId);
+        setCommentsByPost(params.postId);
+        setLikesByPost(params.postId);
+        setPostsByUser(params.userId);
+    }, []);
+
 
     const handleLoopThroughPostsUp = () => {
-        console.log("handleLoopThroughPostsUp")
+        postsByUser.forEach(post => {
+            if(post.id > params.postId) {
+                push(`/post/${post.id}/${params.userId}`);
+            }
+        })
     }
 
     const handleLoopThroughPostsDown = () => {
-        console.log("handleLoopThroughPostsDown")
+        postsByUser.forEach(post => {
+            if(post.id < params.postId) {
+                push(`/post/${post.id}/${params.userId}`)
+            }
+        })
     }
 
     return (
@@ -75,7 +84,7 @@ const Post = (props: PostPageTypes) => {
 
                     <ClientOnly>
                         {postById?.video_url ? (
-                            <video src="/184734-873923034_tiny.mp4"
+                            <video src={UseCreateBucketUrl(postById?.video_url)}
                                    className="fixed object-cover w-full my-auto z-0 h-screen"
                             />
                         ) : null}
@@ -86,7 +95,7 @@ const Post = (props: PostPageTypes) => {
                                        controls
                                        loop
                                        muted
-                                       src="/184734-873923034_tiny.mp4"
+                                       src={UseCreateBucketUrl(postById?.video_url)}
                                        className="h-screen mx-auto"
                                 />
                             ) : null}
@@ -100,9 +109,9 @@ const Post = (props: PostPageTypes) => {
                         <ClientOnly>
                             {postById?.video_url ? (
                                 <CommentsHeader post={postById} params={params} />
-                            ) : (null)}
+                            ) : null}
                         </ClientOnly>
-                        <Comments params={params} post={postById} />
+                        <Comments params={params} />
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ProfilePageTypes} from "@/app/types/type";
 import MainLayout from "@/app/layouts/mainLayout";
 import ClientOnly from "@/app/components/clientOnly";
@@ -8,32 +8,33 @@ import {Button} from "@/components/ui/button";
 import {BsPencil} from "react-icons/bs";
 import PostUser from "@/app/components/profile/postUser";
 import EditProfileOverlay from "@/app/components/profile/editProfileOverlay";
+import {useUser} from "@/app/context/user";
+import {usePostStore} from "@/app/stores/post";
+import {useProfileStore} from "@/app/stores/profile";
+import {useGeneralStore} from "@/app/stores/general";
+import UseCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
 
 const Profile = (props: ProfilePageTypes) => {
     const { params } = props;
 
-    const currentProfile = {
-        id: '123',
-        user_id: '123',
-        name: 'shin eunji',
-        image: 'https://placeholder.co/200',
-        bio: 'this is the bio section!!'
-    }
+    const contextUser = useUser();
+    let { postsByUser, setPostsByUser } = usePostStore();
+    let { setCurrentProfile, currentProfile } = useProfileStore();
+    let { isEditProfileOpen, setIsEditProfileOpen } = useGeneralStore();
 
+
+    useEffect(() => {
+        setCurrentProfile(params?.id);
+        setPostsByUser(params?.id);
+    }, []);
     return (
         <>
             <MainLayout>
-
-                {/*{editOverlay &&*/}
-                {/*    <ClientOnly>*/}
-                {/*        <EditProfileOverlay />*/}
-                {/*    </ClientOnly>*/}
-                {/*}*/}
                 <div className="pt-[90px] ml-[90px] 2xl:pl-[185px] lg:pl-[160px] lg:pr-0 w-[calc(100%-90px)] pr-3 max-w-[1800px] 2xl:mx-auto">
                     <div className="flex w-[calc(100vw-230px)]">
                         <ClientOnly>
-                            {true ? (
-                                <img src={currentProfile?.image}
+                            {currentProfile?.name ? (
+                                <img src={UseCreateBucketUrl(currentProfile?.image)}
                                          alt={currentProfile?.name}
                                          className="w-[120px] min-w-[120px] rounded-full"
                             />
@@ -52,10 +53,10 @@ const Profile = (props: ProfilePageTypes) => {
                                 ) : (<div className="h-[60px]" />)}
                             </ClientOnly>
 
-                            {true ? (
+                            {contextUser?.user?.id === params?.id ? (
                                 <Button variant="outline"
                                         className="flex items-center rounded-md py-1.5 px-3.5 mt-3 text-[15px] font-semibold border hover:bg-gray-100"
-                                        // onClick={() => setEditOverlay(true)}
+                                        onClick={() => setIsEditProfileOpen(isEditProfileOpen !== isEditProfileOpen)}
                                 >
                                     <BsPencil className="mt-0.5 mr-1" size={18} />
                                     <span>프로필 수정</span>
@@ -92,13 +93,9 @@ const Profile = (props: ProfilePageTypes) => {
 
                     <ClientOnly>
                         <div className="mt-4 grid 2xl:grid-cols-6 xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3">
-                            <PostUser post={{
-                                id: '123',
-                                user_id: '456',
-                                video_url: '/184734-873923034_tiny.mp4',
-                                text: 'this is some text',
-                                created_at: 'date here',
-                            }} />
+                            {postsByUser?.map((post, index) => (
+                                <PostUser key={index} post={post} />
+                            ))}
                         </div>
                     </ClientOnly>
                 </div>

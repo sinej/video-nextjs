@@ -6,6 +6,7 @@ import {AiOutlineLoading3Quarters} from "react-icons/ai";
 import Link from "next/link";
 import {SiSoundcharts} from "react-icons/si";
 import {BiErrorCircle} from "react-icons/bi";
+import UseCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
 
 const PostUser = (props: PostUserComTypes) => {
     const { post } = props;
@@ -30,7 +31,7 @@ const PostUser = (props: PostUserComTypes) => {
                 ) : (
                     <Link href={`/post/${post?.id}/${post?.user_id}`}>
                         <video id={`video-${post?.id}`}
-                               src={post?.video_url}
+                               src={UseCreateBucketUrl(post?.video_url)}
                                muted
                                loop
                                className="aspect-[3/4] object-cover rounded-md"

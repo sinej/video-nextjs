@@ -20,25 +20,40 @@ import {FiLogOut} from "react-icons/fi";
 import Image from "next/image";
 import {useUser} from "@/app/context/user";
 import {useGeneralStore} from "@/app/stores/general";
+import debounce from "debounce";
+import {RandomUsers} from "@/app/types/type";
+import UseSearchProfilesByName from "@/app/hooks/useSearchProfilesByName";
+import UseCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
 
 const TopNav = () => {
     const contextUser = useUser();
     const { push } = useRouter();
     const pathname = usePathname();
-    const [searchProfiles, setSearchProfiles] = useState<boolean>(false);
+    const [searchProfiles, setSearchProfiles] = useState<RandomUsers[]>([]);
     let { setIsLoginOpen, setIsEditProfileOpen } = useGeneralStore();
 
     useEffect(() => {
         setIsEditProfileOpen(false);
     }, []);
 
-    const handleSearch = (e: React.MouseEvent<HTMLDivElement>) => console.log("e.currentTarget.value", e.currentTarget);
+    const handleSearch = debounce(async (e: { target: { value: string } }) => {
+        if(e.target.value === "") return setSearchProfiles([]);
+
+        try {
+            const result = await UseSearchProfilesByName(e.target.value);
+            if(result) return setSearchProfiles(result);
+            setSearchProfiles([]);
+        } catch (error) {
+            console.log("error", error);
+            setSearchProfiles([]);
+            alert(error);
+        }
+    }, 500);
     const handleGo = (e: React.MouseEvent<HTMLButtonElement>) => {
         if(!contextUser?.user) return setIsLoginOpen(true);
         push('/upload')
     }
 
-    console.log("contextUser", contextUser)
 
     return (
         <>
@@ -60,29 +75,33 @@ const TopNav = () => {
                             <input type="text"
                                    placeholder="검색"
                                    className="w-full pl-3 my-2 bg-transparent placeholder-[#838383] text-[15px] focus:outline-none"
+                                   onChange={handleSearch}
                             />
-                            <div className="px-3 py-1 flex items-center border-l border-l-gray-300"
-                                 onClick={handleSearch}
-                            >
+                            {searchProfiles.length> 0 ? (
+                                <div className="absolute bg-white max-w-[910px] h-auto w-full z-20 left-0 top-12 border p-1">
+                                    {searchProfiles.map((profile, index) => (
+                                        <div className="p-1" key={index}>
+                                            <Link href={`/profile/${profile?.id}`}
+                                                  className="flex items-center justify-between w-full cursor-pointer hover:bg-[#F12B56] p-1 px-2"
+                                            >
+                                                <div className="flex items-center">
+                                                    <img src={UseCreateBucketUrl(profile?.image)}
+                                                         alt=""
+                                                         className="rounded-md"
+                                                         width={40}
+                                                    />
+                                                    <div className="truncate ml-2">{profile?.name}</div>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : null}
+
+                            <div className="px-3 py-1 flex items-center border-l border-l-gray-300">
                                 <BiSearch size={22} color={"#A1A2A7"}/>
                             </div>
                         </div>
-                        {/*<div className="absolute bg-white max-w-[910px] h-auto w-full z-20 left-0 top-12 border p-1">*/}
-                        {/*    <div className="p-1">*/}
-                        {/*    <Link href={`/profile/1`}*/}
-                        {/*              className="flex items-center justify-between w-full cursor-pointer hover:bg-[#F12B56] p-1 px-2"*/}
-                        {/*        >*/}
-                        {/*            <div className="flex items-center">*/}
-                        {/*                <img src="https://placehold.co/40"*/}
-                        {/*                     alt=""*/}
-                        {/*                     className="rounded-md"*/}
-                        {/*                     width={40}*/}
-                        {/*                />*/}
-                        {/*                <div className="truncate ml-2">John Weeks Dev</div>*/}
-                        {/*            </div>*/}
-                        {/*        </Link>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
                     </div>
 
                     <div className="flex items-center gap-3">
@@ -108,11 +127,13 @@ const TopNav = () => {
                                 <DropdownMenu>
                                     <DropdownMenuTrigger>
                                         <Avatar>
-                                            <AvatarImage src="https://github.com/shadcn.png" />
+                                            <AvatarImage src={UseCreateBucketUrl(contextUser?.user?.image || "")} />
                                         </Avatar>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent>
-                                        <DropdownMenuLabel className="flex itmems-center">
+                                        <DropdownMenuLabel className="flex itmems-center"
+                                                           onClick={() => push(`/profile/${contextUser?.user?.id}`)}
+                                        >
                                             <BiUser size={20}/>
                                             <span className="pl-2 font-semibold text-sm">프로필</span>
                                         </DropdownMenuLabel>

@@ -1,17 +1,16 @@
-import {database, Query} from "@/libs/appWriteClient";
+import { database, Query } from "@/libs/appWriteClient"
 import UseGetProfileByUserId from "@/app/hooks/useGetProfileByUserId";
 
 const UseGetCommentsByPostId = async (postId: string) => {
-
     try {
         const commentsResult = await database.listDocuments(
             String(process.env.NEXT_PUBLIC_DATABASE_ID),
             String(process.env.NEXT_PUBLIC_COLLECTION_ID_COMMENT),
             [
                 Query.equal('post_id', postId),
-                Query.orderDesc('$id')
+                Query.orderDesc("$id")
             ]
-        )
+        );
 
         const objPromises = commentsResult.documents.map(async comment => {
             const profile = await UseGetProfileByUserId(comment.user_id)
@@ -30,13 +29,11 @@ const UseGetCommentsByPostId = async (postId: string) => {
             }
         })
 
-        const result = await Promise.all(objPromises);
-
-        return result;
-
+        const result = await Promise.all(objPromises)
+        return result
     } catch (error) {
-        throw error;
+        throw error
     }
-
 }
-export default UseGetCommentsByPostId;
+
+export default UseGetCommentsByPostId

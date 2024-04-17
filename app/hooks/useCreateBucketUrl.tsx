@@ -1,4 +1,4 @@
-const UseCreateBucketUrl = async (fileId: string) => {
+const UseCreateBucketUrl = (fileId: string) => {
 
     const url = process.env.NEXT_PUBLIC_APPWRITE_URL;
     const id = process.env.NEXT_PUBLIC_BUCKET_ID;

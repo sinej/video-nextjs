@@ -8,6 +8,7 @@ import {ImMusic} from "react-icons/im";
 import {AiFillHeart} from "react-icons/ai";
 import PostMainLikes from "@/app/components/post/postMainLikes";
 import Image from "next/image";
+import UseCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
 
 const PostMain = (props: PostMainCompTypes) => {
     const { post } = props;
@@ -32,7 +33,7 @@ const PostMain = (props: PostMainCompTypes) => {
                  className="flex border-b py-6"
             >
                 <div className="cursor-pointer">
-                    <Image src={post?.profile?.image}
+                    <Image src={UseCreateBucketUrl(post?.profile?.image)}
                            alt={post?.profile?.name}
                            className="rounded-full max-h-[60px]"
                            width={60}
@@ -71,7 +72,7 @@ const PostMain = (props: PostMainCompTypes) => {
                                    controls
                                    muted
                                    className="rounded-xl object-cover mx-auto h-full"
-                                   src={post?.video_url}
+                                   src={UseCreateBucketUrl(post?.video_url)}
                             />
                             <Image src="/images/logo_b.svg"
                                    className="absolute right-3 bottom-4"

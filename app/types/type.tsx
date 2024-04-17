@@ -90,7 +90,7 @@ export interface CommentsHeaderCompTypes {
 
 export interface CommentsCompTypes {
     params: { userId: string; postId: string };
-    post: PostWithProfile;
+    post?: PostWithProfile;
 }
 
 export interface SingleCommentsCompTypes {

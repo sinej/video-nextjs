@@ -3,15 +3,17 @@ import {FollowItemCompTypes} from "@/app/types/type";
 import Link from 'next/link';
 import {AiOutlineCheck} from "react-icons/ai";
 import Image from "next/image";
+import useCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
 
 const FollowItemMenu = (props: FollowItemCompTypes) => {
     const { user } = props;
+    
     return (
         <>
             <Link href={`/profile/${user?.id}`}
                   className="flex items-center hover:bg-gray-100 rounded-md w-full py-1.5 px-2"
             >
-                <Image src={user?.image}
+                <Image src={useCreateBucketUrl(user?.image)}
                        alt={user?.name}
                        width={40}
                        height={40}

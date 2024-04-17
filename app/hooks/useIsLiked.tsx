@@ -1,6 +1,6 @@
 import {Like} from "../types/type";
 
-const useIsLiked = (userId: string, postId: string, likes: Array<Like>) => {
+const UseIsLiked = (userId: string, postId: string, likes: Array<Like>) => {
     let res: Like[] = []
     likes?.forEach((like) => {
         if (like.user_id == userId && like.post_id == postId) res.push(like)
@@ -9,4 +9,4 @@ const useIsLiked = (userId: string, postId: string, likes: Array<Like>) => {
     return res.length > 0
 }
 
-export default useIsLiked
+export default UseIsLiked;

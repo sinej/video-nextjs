@@ -6,15 +6,32 @@ import Link from "next/link";
 import {Button} from "@/components/ui/button";
 import {BiLoaderCircle} from "react-icons/bi";
 import {BsTrash3} from "react-icons/bs";
+import {useUser} from "@/app/context/user";
+import {useCommentStore} from "@/app/stores/comment";
+import UseDeleteComment from "@/app/hooks/useDeleteComment";
+import UseCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
+import moment from "moment";
 
 const SingleComment = (props: SingleCommentsCompTypes) => {
     const { comment, params } = props;
 
+    const contextUser = useUser();
+    let { setCommentsByPost } = useCommentStore();
+
     const [isDeleting, setIsDeleting] = useState<boolean>(false);
 
-    const deleteComment = () => {
+    const deleteComment = async () => {
         let res = confirm('이 댓글을 삭제하시겠습니까?');
         if(!res) return;
+
+        try {
+            setIsDeleting(true);
+            await UseDeleteComment(comment?.id);
+            setCommentsByPost(params?.postId);
+            setIsDeleting(false);
+        } catch (error) {
+            console.log("error", error);
+        }
     }
 
     return (
@@ -22,7 +39,7 @@ const SingleComment = (props: SingleCommentsCompTypes) => {
             <div id="SingleComment" className="flex items-center justify-between px-8 mt-4">
                 <div className="flex items-center relative w-full">
                     <Link href={`/profile/${comment.profile.user_id}`}>
-                        <img src={comment.profile.image}
+                        <img src={UseCreateBucketUrl(comment.profile.image)}
                              alt={comment.profile.name}
                              width={40}
                              className="absolute top-0 rounded-full lg:mx-0 mx-auto"
@@ -32,10 +49,10 @@ const SingleComment = (props: SingleCommentsCompTypes) => {
                         <div className="text-[18px] font-semibold flex items-center justify-between">
                             <span className="flex items-center">
                                 {comment?.profile?.name} -
-                                <span className="text-[12px] text-gray-600 font-light ml-1">{comment?.created_at}</span>
+                                <span className="text-[12px] text-gray-600 font-light ml-1">{moment(comment?.created_at).calendar()}</span>
                             </span>
 
-                            {true ? <Button variant="link"
+                            {contextUser?.user?.id === comment.profile?.user_id ? <Button variant="link"
                                             size="icon"
                                             disabled={isDeleting}
                                             onClick={() => deleteComment()}

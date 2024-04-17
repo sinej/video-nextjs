@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {usePathname} from "next/navigation";
 import Link from "next/link";
 import MenuItem from "@/app/layouts/includes/menuItem";
@@ -8,15 +8,17 @@ import {BsCameraVideo} from "react-icons/bs";
 import ClientOnly from "@/app/components/clientOnly";
 import FollowItemMenu from "@/app/layouts/includes/followItem";
 import {Button} from "@/components/ui/button";
+import {useGeneralStore} from "@/app/stores/general";
+import {useUser} from "@/app/context/user";
 
-type Props = {
-
-};
-
-const Sidebar = (props: Props) => {
-    const {} = props;
+const Sidebar = () => {
     const pathname = usePathname();
-    const [isLogin, setIsLogin] = useState(true);
+    let { setRandomUsers, randomUsers } = useGeneralStore();
+    const contextUser = useUser();
+
+    useEffect(() => {
+        setRandomUsers()
+    }, []);
 
     return (
         <>
@@ -38,14 +40,16 @@ const Sidebar = (props: Props) => {
                               icons={<BsCameraVideo size={25} color={pathname === `/` ? `#F02C56` : ``}/>}
                               colorString={pathname === `/` ? `#F02C56` : ``}
                     />
-                    <div className="border-t lg:ml-2 mt-2">
+                    {randomUsers?.length > 0 ? <div className="border-t lg:ml-2 mt-2">
                         <h3 className="lg:block hidden text-xs text-gray-600 font-semibold pt-4 pb-2 px-2">
                             추천 계정
                         </h3>
-                        <div className="lg:hidden block pt-3" />
+                        <div className="lg:hidden block pt-3"/>
                         <ClientOnly>
                             <div className="cursor-pointer">
-                                <FollowItemMenu user={{id: '1', name: 'Test User', image: 'https://placeholder.co/300'}} />
+                                {randomUsers.map((user, index) =>
+                                    <FollowItemMenu user={user} key={index}/>
+                                )}
                             </div>
                         </ClientOnly>
                         <Button variant="link"
@@ -53,8 +57,8 @@ const Sidebar = (props: Props) => {
                         >
                             모두보기
                         </Button>
-                    </div>
-                    {isLogin ? (
+                    </div> : null}
+                    {contextUser?.user?.id ? (
                         <div className="border-t lg:ml-2 mt-2">
                             <h3 className="lg:block hidden text-xs text-gray-600 font-semibold pt-4 pb-2 px-2">
                                 팔로잉 계정
@@ -62,8 +66,9 @@ const Sidebar = (props: Props) => {
                             <div className="lg:hidden block pt-3"/>
                             <ClientOnly>
                                 <div className="cursor-pointer">
-                                    <FollowItemMenu
-                                        user={{id: '1', name: 'Test User', image: 'https://placeholder.co/300'}}/>
+                                    {randomUsers.map((user, index) =>
+                                        <FollowItemMenu user={user} key={index} />
+                                    )}
                                 </div>
                             </ClientOnly>
                             <Button variant="link"

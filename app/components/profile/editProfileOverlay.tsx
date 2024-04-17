@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRouter} from "next/navigation";
 import {CropperDimensions, ShowErrorObject} from "@/app/types/type";
 import {Cropper} from "react-advanced-cropper";
@@ -10,23 +10,38 @@ import {BsPencil} from "react-icons/bs";
 import TextInput from "@/app/components/form/textInput";
 import Textarea from "@/app/components/form/textarea";
 import {BiLoaderCircle} from "react-icons/bi";
+import {useProfileStore} from "@/app/stores/profile";
+import {useGeneralStore} from "@/app/stores/general";
+import {useUser} from "@/app/context/user";
+import UseUpdateProfile from "@/app/hooks/useUpdateProfile";
+import UseChangeUserImage from "@/app/hooks/useChangeUserImage";
+import UseUpdateProfileImage from "@/app/hooks/useUpdateProfileImage";
+import UseCreateBucketUrl from "@/app/hooks/useCreateBucketUrl";
 //
 // interface Props {
 //     handleEditProfileClose: () => void;
 // };
 
 const EditProfileOverlay = () => {
-    // const { handleEditProfileClose } = props;
-    const { push } = useRouter();
+
+    let { currentProfile, setCurrentProfile } = useProfileStore()
+    let { setIsEditProfileOpen } = useGeneralStore();
+    const contextUser = useUser();
+    const { refresh } = useRouter();
     const [file, setFile] = useState<File | null>(null);
     const [cropper, setCropper] = useState<CropperDimensions | null>(null);
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-    const [userImage,setUserImage ] = useState<string | ''>('https://placeholder.co/100');
+    const [userImage,setUserImage ] = useState<string | ''>('');
     const [userName,setUserName ] = useState<string | ''>('');
     const [userBio, setUserBio] = useState<string | ''>('');
     const [isUpdating, setIsUpdating] = useState<boolean>(false);
     const [error, setError] = useState<ShowErrorObject | null>(null);
 
+    useEffect(() => {
+        setUserName(currentProfile?.name || '');
+        setUserBio(currentProfile?.bio || '');
+        setUserImage(currentProfile?.image || '');
+    }, []);
     const handleUploadedProfileImage = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files && event.target.files[0];
 
@@ -39,6 +54,34 @@ const EditProfileOverlay = () => {
         }
     }
 
+    const updateUserInfo = async () => {
+        let isError = validate();
+        if(isError) return;
+        if(!contextUser?.user) return;
+
+        try {
+            setIsUpdating(true);
+            await UseUpdateProfile(currentProfile?.id || '', userName, userBio);
+            setCurrentProfile(contextUser?.user?.id)
+            setIsEditProfileOpen(false)
+            refresh();
+        } catch (error) {
+            console.log("error", error);
+            throw error;
+        }
+    }
+
+    const validate = () => {
+        setError(null)
+        let isError = false;
+
+        if(!userName) {
+            setError({ type: 'email', message: '이름은 필수사항입니다.'})
+            isError = true;
+        }
+        return isError;
+    }
+
     const showError = (type: string) => {
         if(error && Object.entries(error).length > 0 && error?.type === type) {
             return error.message
@@ -46,8 +89,27 @@ const EditProfileOverlay = () => {
         return "";
     }
 
-    const cropUpdateImage = () => {
-        console.log("cropUpdateImage")
+    const cropUpdateImage = async () => {
+        let isError = validate();
+        if(isError) return;
+        if(!contextUser?.user) return
+
+        try {
+            if(!file) return alert("파일이 없습니다.");
+            if(cropper) return alert("파일이 없습니다.");
+            setIsUpdating(true);
+            const newImageId = await UseChangeUserImage(file, cropper, userImage);
+            await UseUpdateProfileImage(currentProfile?.id || '', newImageId);
+
+            await contextUser.checkUser();
+            setCurrentProfile(contextUser?.user?.id);
+            setIsEditProfileOpen(false);
+            setIsUpdating(false);
+        } catch (error) {
+            console.log("error", error)
+            setIsUpdating(false);
+            alert(error);
+        }
     }
 
     return (
@@ -65,7 +127,7 @@ const EditProfileOverlay = () => {
                         <Button variant="link"
                                 size="icon"
                                 disabled={isUpdating}
-                                // onClick={() => handleEditProfileClose()}
+                                onClick={() => setIsEditProfileOpen(false)}
                         >
                             <AiOutlineClose size={25} />
                         </Button>
@@ -85,7 +147,7 @@ const EditProfileOverlay = () => {
                                         <label htmlFor="image"
                                                className="relative cursor-pointer"
                                         >
-                                            <Image src={userImage}
+                                            <Image src={UseCreateBucketUrl(userImage)}
                                                    alt={userName}
                                                    className="rounded-full w-[95px] h-[95px]"
                                                    width={95}
@@ -165,13 +227,14 @@ const EditProfileOverlay = () => {
                             >
                                 <Button variant="outline"
                                         disabled={isUpdating}
-                                        // onClick={() => handleEditProfileClose()}
+                                        onClick={() => setIsEditProfileOpen(false)}
                                         className="flex items-center border rounded-sm px-3 py-[6px] hover:bg-gray-100"
                                 >
                                     <span className="px-2 font-medium text-[15px]">취소</span>
                                 </Button>
 
                                 <Button disabled={isUpdating}
+                                        onClick={() => updateUserInfo()}
                                         className="flex items-center border rounded-sm px-3 py-[6px] ml-3"
                                 >
                                     <span className="px-2 font-medium text-[15px]">
