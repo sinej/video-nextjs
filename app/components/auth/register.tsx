@@ -5,12 +5,13 @@ import {useRouter} from "next/navigation";
 import {ShowErrorObject} from "@/app/types/type";
 import TextInput from "@/app/components/form/textInput";
 import {BiLoaderCircle} from "react-icons/bi";
-import {useUser} from "@/app/components/context/user";
+import {useUser} from "@/app/context/user";
 import {useGeneralStore} from "@/app/stores/general";
 
 const Register = () => {
-    const contextUser = useUser();
     let { setIsLoginOpen } = useGeneralStore();
+
+    const contextUser = useUser();
     const { refresh } = useRouter();
 
     const [loading, setLoading] = useState<boolean>(false);

@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useEffect, useState} from "react";
+import React from "react";
 import ClientOnly from "@/app/components/clientOnly";
 import { useGeneralStore } from "@/app/stores/general";
 import AuthOverlay from "@/app/components/authOverlay";

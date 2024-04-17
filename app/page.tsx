@@ -13,7 +13,6 @@ export default function Home() {
                     video_url: '/184734-873923034_tiny.mp4',
                     text: 'this is some text',
                     created_at: 'date here',
-                    tags: ['#fun', '#cool', '#SuperAwesome'],
                     profile: {
                         user_id: '456',
                         name: 'User 1',

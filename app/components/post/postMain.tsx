@@ -52,11 +52,11 @@ const PostMain = (props: PostMainCompTypes) => {
                     </div>
                     <p className="text-[15px] pb-0.5 break-words md:max-w-[400px] max-w-[300px]">{post?.text}</p>
                     <div className="flex items-center pb-0.5 md:max-w-[400px] max-w-[300px]">
-                    {post?.tags.map((tag: any, index: number) =>
-                        <p className="text-[15px] break-words"
-                           key={index}
-                        >{tag}</p>
-                    )}
+                    {/*{post?.tags.map((tag: any, index: number) =>*/}
+                    {/*    <p className="text-[15px] break-words"*/}
+                    {/*       key={index}*/}
+                    {/*    >{tag}</p>*/}
+                    {/*)}*/}
                     </div>
                     <p className="text-[15px] pb-0.5 break-words md:max-w-[400px] max-w-[300px] flex items-center">
                         <ImMusic size={17} />

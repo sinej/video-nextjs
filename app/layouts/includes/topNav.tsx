@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {FiLogOut} from "react-icons/fi";
 import Image from "next/image";
-import {useUser} from "@/app/components/context/user";
+import {useUser} from "@/app/context/user";
 import {useGeneralStore} from "@/app/stores/general";
 
 const TopNav = () => {
@@ -37,6 +37,9 @@ const TopNav = () => {
         if(!contextUser?.user) return setIsLoginOpen(true);
         push('/upload')
     }
+
+    console.log("contextUser", contextUser)
+
     return (
         <>
             <div id="TopNav" className="fixed bg-white z-30 flex items-center w-full border-b h-[60px]">
@@ -50,7 +53,7 @@ const TopNav = () => {
                                height={52}
                         />
                     </Link>
-                    {/**/}
+
                     <div className="w-full flex items-center justify-end relative max-w-[430px]">
                         <div
                             className="relative hidden md:flex items-center justify-end bg-[#161823]/5 p-1 rounded-full max-w-[430px] w-full hover:border hover:border-neutral-300">

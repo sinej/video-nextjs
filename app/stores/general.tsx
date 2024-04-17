@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 import { persist, devtools, createJSONStorage } from "zustand/middleware";
 import {GeneralStore} from "@/app/types/general.type";
-import UseGetRandomUsers from "@/app/components/hooks/useGetRandomUsers";
+import UseGetRandomUsers from "@/app/hooks/useGetRandomUsers";
 
 export const useGeneralStore = create<GeneralStore>()(
     devtools(

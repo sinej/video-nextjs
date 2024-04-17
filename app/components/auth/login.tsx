@@ -4,11 +4,12 @@ import React, {useState} from 'react';
 import {ShowErrorObject} from "@/app/types/type";
 import TextInput from "@/app/components/form/textInput";
 import {BiLoaderCircle} from "react-icons/bi";
-import {useUser} from "@/app/components/context/user";
+import {useUser} from "@/app/context/user";
 import {useRouter} from "next/navigation";
 import {useGeneralStore} from "@/app/stores/general";
 
 const Login = () => {
+
     let { setIsLoginOpen } = useGeneralStore();
     const contextUser = useUser();
     const { refresh } = useRouter();
@@ -50,8 +51,8 @@ const Login = () => {
 
         try {
             setLoading(true);
-            await contextUser.login(email, password)
-            setLoading(false)
+            await contextUser.login(email, password);
+            setLoading(false);
             setIsLoginOpen(false);
             refresh()
         } catch (error) {

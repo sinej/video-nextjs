@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import UserProvider from "@/app/components/context/user";
+import UserProvider from "@/app/context/user";
 import AllOverlay from "@/app/components/allOverlay";
 
 export const metadata: Metadata = {

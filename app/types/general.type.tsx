@@ -8,3 +8,11 @@ export interface GeneralStore {
     setIsEditProfileOpen: (val: boolean) => void,
     setRandomUsers: () => void,
 }
+
+export interface Profile {
+    id: string;
+    user_id: string;
+    name: string;
+    image: string;
+    bio: string;
+}

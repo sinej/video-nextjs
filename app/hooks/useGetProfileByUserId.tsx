@@ -10,6 +10,7 @@ const UseGetProfileByUserId = async (userId: string) => {
             ]
         );
         const documents = response.documents;
+        console.log("documents", documents)
         return {
             id: documents[0]?.$id,
             user_id: documents[0]?.user_id,

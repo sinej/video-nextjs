@@ -50,6 +50,18 @@ export interface CommentsWithProfile {
         image: string;
     }
 }
+export interface CommentWithProfile {
+    id: string;
+    user_id: string;
+    post_id: string;
+    text: string;
+    created_at: string;
+    profile: {
+        user_id: string;
+        name: string;
+        image: string;
+    }
+}
 
 export interface PostWithProfile {
     id: string;
@@ -57,13 +69,13 @@ export interface PostWithProfile {
     video_url: string;
     text: string;
     created_at: string;
-    tags: Object[];
     profile: {
         user_id: string;
         name: string;
         image: string;
     }
 }
+
 
 export interface UploadError {
     type: string;

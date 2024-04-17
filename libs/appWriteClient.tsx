@@ -1,6 +1,6 @@
 import { Client, Account, ID, Databases, Query, Storage } from 'appwrite';
 
-const client: Client = new Client();
+const client = new Client();
 
 client.setEndpoint(String(process.env.NEXT_PUBLIC_APPWRITE_URL))
     .setProject(String(process.env.NEXT_PUBLIC_ENDPOINT));
