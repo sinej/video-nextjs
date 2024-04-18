@@ -99,7 +99,7 @@ export default function TopNav() {
                                     onClick={() => setIsLoginOpen(true)}
                                     className="flex items-center bg-[#F02C56] text-white border rounded-md px-3 py-[6px]"
                                 >
-                                    <span className="whitespace-nowrap mx-4 font-medium text-[15px]">Log in</span>
+                                    <span className="whitespace-nowrap mx-4 font-medium text-[15px]">로그인</span>
                                 </button>
                                 <BsThreeDotsVertical color="#161724" size="25"/>
                             </div>

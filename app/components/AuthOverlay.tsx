@@ -26,10 +26,10 @@ export default function AuthOverlay() {
                     {isRegister ? <Register /> : <Login />}
 
                     <div className="absolute flex items-center justify-center py-5 left-0 bottom-0 border-t w-full">
-                        <span className="text-[14px] text-gray-600">Don’t have an account?</span>
+                        <span className="text-[14px] text-gray-600">{!isRegister ? '계정이 없으세요?' : '이미 계정이 있으신가요?'}</span>
 
                         <button onClick={() => setIsRegister(isRegister = !isRegister)} className="text-[14px] text-[#F02C56] font-semibold pl-1" >
-                            <span>{!isRegister ? 'Register' : 'log in'}</span>
+                            <span>{!isRegister ? '회원가입' : '로그인'}</span>
                         </button>
                     </div>
 

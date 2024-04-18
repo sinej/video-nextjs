@@ -200,7 +200,7 @@ export default function Upload() {
                                     <PiKnifeLight className="mr-4" size="20"/>
                                 </div>
                                 <div>
-                                    <div className="text-semibold text-[15px] mb-1.5">Divide videos and edit</div>
+                                    <div className="text-semibold text-[15px] mb-1.5">영상 분할 및 편집</div>
                                     <div className="text-semibold text-[13px] text-gray-400">
                                         비디오를 여러 부분으로 빠르게 나누고, 중복된 부분을 제거하고, 가로 비디오를 세로 비디오로 바꿀 수 있습니다.
                                     </div>

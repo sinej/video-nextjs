@@ -27,10 +27,10 @@ export default function Login() {
         let isError = false
 
         if (!email) {
-            setError({ type: 'email', message: 'An Email is required'})
+            setError({ type: 'email', message: '이메일이 필수사항입니다.'})
             isError = true
         } else if (!password) {
-            setError({ type: 'password', message: 'A Password is required'})
+            setError({ type: 'password', message: '비밀번호는 필수사항입니다.'})
             isError = true
         }
         return isError
@@ -56,12 +56,12 @@ export default function Login() {
     return (
         <>
             <div>
-                <h1 className="text-center text-[28px] mb-4 font-bold">Log in</h1>
+                <h1 className="text-center text-[28px] mb-4 font-bold">로그인</h1>
 
                 <div className="px-6 pb-2">
                     <TextInput 
                         string={email}
-                        placeholder="Email address"
+                        placeholder="이메일"
                         onUpdate={setEmail}
                         inputType="email"
                         error={showError('email')}
@@ -71,7 +71,7 @@ export default function Login() {
                 <div className="px-6 pb-2">
                     <TextInput 
                         string={password}
-                        placeholder="Password"
+                        placeholder="패스워드"
                         onUpdate={setPassword}
                         inputType="password"
                         error={showError('password')}
@@ -87,7 +87,7 @@ export default function Login() {
                             ${(!email || !password) ? 'bg-gray-200' : 'bg-[#F02C56]'}
                         `}
                     >
-                        {loading ? <BiLoaderCircle className="animate-spin" color="#ffffff" size={25} /> : 'Log in'}
+                        {loading ? <BiLoaderCircle className="animate-spin" color="#ffffff" size={25} /> : '로그인'}
                     </button>
                 </div>
             </div>

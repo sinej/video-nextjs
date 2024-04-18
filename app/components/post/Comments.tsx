@@ -44,7 +44,7 @@ export default function Comments({ params }: CommentsCompTypes) {
 
                 <ClientOnly>
                     {commentsByPost.length < 1 ? (
-                        <div className="text-center mt-6 text-xl text-gray-500">No comments...</div>
+                        <div className="text-center mt-6 text-xl text-gray-500">댓글이 없습니다.</div>
                     ) : (
                         <div>
                             {commentsByPost.map((comment, index) => (
@@ -75,7 +75,7 @@ export default function Comments({ params }: CommentsCompTypes) {
                         value={comment || ''}
                         className="bg-[#F1F1F2] text-[14px] focus:outline-none w-full lg:max-w-[420px] p-2 rounded-lg" 
                         type="text"
-                        placeholder="Add comment..."
+                        placeholder="댓글을 작성해주세요."
                     />
                 </div>
                 {!isUploading ? (
@@ -87,7 +87,7 @@ export default function Comments({ params }: CommentsCompTypes) {
                             ${comment ? 'text-[#F02C56] cursor-pointer' : 'text-gray-400'}
                         `}
                     >
-                        Post
+                        게시
                     </button>
                 ) : (
                     <BiLoaderCircle className="animate-spin" color="#E91E62" size="20" />
