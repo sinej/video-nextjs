@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 import { persist, devtools, createJSONStorage } from 'zustand/middleware';
-import UseGetProfileByUserId from "@/app/hooks/useGetProfileByUserId";
-import {Profile} from "@/app/types/general.type";
-
+import { Profile } from '../types';
+import UseGetProfileByUserId from '../hooks/useGetProfileByUserId';
+  
 interface ProfileStore {
     currentProfile: Profile | null;
     setCurrentProfile: (userId: string) => void;
 }
 
-export const useProfileStore = create<ProfileStore>()(
+export const useProfileStore = create<ProfileStore>()( 
     devtools(
         persist(
             (set) => ({
@@ -19,9 +19,9 @@ export const useProfileStore = create<ProfileStore>()(
                     set({ currentProfile: result });
                 },
             }),
-            {
-                name: 'store',
-                storage: createJSONStorage(() => localStorage)
+            { 
+                name: 'store', 
+                storage: createJSONStorage(() => localStorage) 
             }
         )
     )

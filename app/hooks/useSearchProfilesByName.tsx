@@ -1,19 +1,19 @@
-import { database, Query } from "@/libs/appWriteClient"
+import { database, Query } from "@/libs/AppWriteClient"
 
-const useSearchProfilesByName = async (name: string) => {
+const UseSearchProfilesByName = async (name: string) => {
     try {
         const profileResult = await database.listDocuments(
-            String(process.env.NEXT_PUBLIC_DATABASE_ID),
-            String(process.env.NEXT_PUBLIC_COLLECTION_ID_PROFILE),
-            [
+            String(process.env.NEXT_PUBLIC_DATABASE_ID), 
+            String(process.env.NEXT_PUBLIC_COLLECTION_ID_PROFILE), 
+            [ 
                 Query.limit(5),
                 Query.search("name", name)
             ]
         );
 
-        const objPromises = profileResult.documents.map(profile => {
+       const objPromises = profileResult.documents.map(profile => {
             return {
-                id: profile?.user_id,
+                id: profile?.user_id,  
                 name: profile?.name,
                 image: profile?.image,
             }
@@ -26,4 +26,4 @@ const useSearchProfilesByName = async (name: string) => {
     }
 }
 
-export default useSearchProfilesByName
+export default UseSearchProfilesByName

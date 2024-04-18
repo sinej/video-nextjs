@@ -1,29 +1,25 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import UserProvider from "@/app/context/user";
-import AllOverlay from "@/app/components/allOverlay";
+import UserProvider from './context/user'
+import AllOverlays from "@/app/components/AllOverlays"
+import './globals.css'
+import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: "Video",
-  description: "Video",
-  icons: {
-    icon: "/favicon.ico",
-  },
-};
+  title: 'TikTok Clone',
+  description: 'TikTok Clone',
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-    return (
-        <html lang="ko">
-            <UserProvider>
-                <body>
-                    <AllOverlay/>
-                    {children}
-                </body>
-            </UserProvider>
-        </html>
-    );
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+    <UserProvider>
+
+
+        <body>
+        <AllOverlays/>
+        {children}
+        </body>
+
+    </UserProvider>
+    </html>
+  )
 }

@@ -1,16 +1,15 @@
-import {database, ID, storage} from "@/libs/appWriteClient";
+import { database } from "@/libs/AppWriteClient"
 
 const UseDeleteLike = async (id: string) => {
     try {
         await database.deleteDocument(
-            String(process.env.NEXT_PUBLIC_DATABASE_ID),
-            String(process.env.NEXT_PUBLIC_COLLECTION_ID_LIKE),
+            String(process.env.NEXT_PUBLIC_DATABASE_ID), 
+            String(process.env.NEXT_PUBLIC_COLLECTION_ID_LIKE), 
             id
-        )
-
+        );
     } catch (error) {
         throw error
     }
-
 }
-export default UseDeleteLike;
+
+export default UseDeleteLike

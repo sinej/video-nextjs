@@ -1,19 +1,19 @@
-import { database, Query } from "@/libs/appWriteClient"
+import { database, Query } from "@/libs/AppWriteClient"
 
 const UseGetRandomUsers = async () => {
     try {
         const profileResult = await database.listDocuments(
-            String(process.env.NEXT_PUBLIC_DATABASE_ID),
-            String(process.env.NEXT_PUBLIC_COLLECTION_ID_PROFILE),
-            [
-                Query.limit(5)
+            String(process.env.NEXT_PUBLIC_DATABASE_ID), 
+            String(process.env.NEXT_PUBLIC_COLLECTION_ID_PROFILE), 
+            [ 
+                Query.limit(5) 
             ]
         );
         const documents = profileResult.documents
 
-        const objPromises = documents.map(profile => {
+       const objPromises = documents.map(profile => {
             return {
-                id: profile?.user_id,
+                id: profile?.user_id,  
                 name: profile?.name,
                 image: profile?.image,
             }
@@ -26,4 +26,4 @@ const UseGetRandomUsers = async () => {
     }
 }
 
-export default UseGetRandomUsers;
+export default UseGetRandomUsers

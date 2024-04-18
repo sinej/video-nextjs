@@ -1,10 +1,18 @@
-import { create } from "zustand";
+import { create } from 'zustand';
+import { persist, devtools, createJSONStorage } from 'zustand/middleware';
+import { RandomUsers } from '../types';
+import UseGetRandomUsers from '../hooks/useGetRandomUsers';
+  
+interface GeneralStore {
+    isLoginOpen: boolean,
+    isEditProfileOpen: boolean,
+    randomUsers: RandomUsers[]
+    setIsLoginOpen: (val: boolean) => void,
+    setIsEditProfileOpen: (val: boolean) => void,
+    setRandomUsers: () => void,
+}
 
-import { persist, devtools, createJSONStorage } from "zustand/middleware";
-import {GeneralStore} from "@/app/types/general.type";
-import UseGetRandomUsers from "@/app/hooks/useGetRandomUsers";
-
-export const useGeneralStore = create<GeneralStore>()(
+export const useGeneralStore = create<GeneralStore>()( 
     devtools(
         persist(
             (set) => ({
@@ -19,9 +27,9 @@ export const useGeneralStore = create<GeneralStore>()(
                     set({ randomUsers: result })
                 },
             }),
-            {
-                name: 'store',
-                storage: createJSONStorage(() => localStorage)
+            { 
+                name: 'store', 
+                storage: createJSONStorage(() => localStorage) 
             }
         )
     )

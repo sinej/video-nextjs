@@ -29,10 +29,10 @@ const PostMain = (props: PostMainCompTypes) => {
     return (
         <>
             <div id={`postMain-${post?.id}`}
-                 className="flex border-b py-6"
+                 className="flex border-b py-6 flex-col lg:flex-row"
             >
                 <div className="cursor-pointer">
-                    <Image src={UseCreateBucketUrl(post?.profile?.image)}
+                    <img src={UseCreateBucketUrl(post?.profile?.image)}
                            alt={post?.profile?.name}
                            className="rounded-full max-h-[60px]"
                            width={60}
@@ -64,8 +64,8 @@ const PostMain = (props: PostMainCompTypes) => {
                         <AiFillHeart size={20} />
                     </p>
 
-                    <div className="mt-2.5 flex">
-                        <div className="relative min-h-[480px] max-w-[260px] flex items-center bg-black rounded-xl cursor-pointer">
+                    <div className="mt-2.5 flex flex-col lg:flex-row">
+                        <div className="relative min-h-[480px] max-w-full lg:max-w-[260px] flex items-center bg-black rounded-xl cursor-pointer">
                             <video id={`video-${post.id}`}
                                    loop
                                    controls
@@ -73,7 +73,7 @@ const PostMain = (props: PostMainCompTypes) => {
                                    className="rounded-xl object-cover mx-auto h-full"
                                    src={UseCreateBucketUrl(post?.video_url)}
                             />
-                            <Image src="/images/logo_b.svg"
+                            <Image src={"/images/logo_b.svg"}
                                    className="absolute right-3 bottom-4"
                                    alt="logo"
                                    color="black"

@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 import { persist, devtools, createJSONStorage } from 'zustand/middleware';
-import UseGetCommentsByPostId from "@/app/hooks/useGetCommentsByPostId";
-import {CommentWithProfile} from "@/app/types/type";
-
+import { CommentWithProfile } from '../types';
+import UseGetCommentsByPostId from '../hooks/useGetCommentsByPostId';
+  
 interface CommentStore {
     commentsByPost: CommentWithProfile[]
     setCommentsByPost: (postId: string) => void;
 }
 
-export const useCommentStore = create<CommentStore>()(
+export const useCommentStore = create<CommentStore>()( 
     devtools(
         persist(
             (set) => ({
@@ -19,9 +19,9 @@ export const useCommentStore = create<CommentStore>()(
                     set({ commentsByPost: result });
                 },
             }),
-            {
-                name: 'store',
-                storage: createJSONStorage(() => localStorage)
+            { 
+                name: 'store', 
+                storage: createJSONStorage(() => localStorage) 
             }
         )
     )

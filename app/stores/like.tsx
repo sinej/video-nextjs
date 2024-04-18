@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 import { persist, devtools, createJSONStorage } from 'zustand/middleware';
-import {Like} from "@/app/types/type";
-import UseGetLikesByPostId from "@/app/hooks/useGetLikesByPostId";
-
+import { Like } from '../types';
+import UseGetLikesByPostId from '../hooks/useGetLikesByPostId';
+  
 interface LikeStore {
     likesByPost: Like[];
     setLikesByPost: (postId: string) => void;
 }
 
-export const useLikeStore = create<LikeStore>()(
+export const useLikeStore = create<LikeStore>()( 
     devtools(
         persist(
             (set) => ({
@@ -19,9 +19,9 @@ export const useLikeStore = create<LikeStore>()(
                     set({ likesByPost: result });
                 },
             }),
-            {
-                name: 'store',
-                storage: createJSONStorage(() => localStorage)
+            { 
+                name: 'store', 
+                storage: createJSONStorage(() => localStorage) 
             }
         )
     )

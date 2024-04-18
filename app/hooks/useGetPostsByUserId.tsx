@@ -1,12 +1,13 @@
 import { database, Query } from "@/libs/AppWriteClient"
 
-const UseGetLikesByPostId = async (postId: string) => {
+const UseGetPostsByUserId = async (userId: string) => {
     try {
         const response = await database.listDocuments(
             String(process.env.NEXT_PUBLIC_DATABASE_ID), 
-            String(process.env.NEXT_PUBLIC_COLLECTION_ID_LIKE), 
-            [ 
-                Query.equal('post_id', postId) 
+            String(process.env.NEXT_PUBLIC_COLLECTION_ID_POST), 
+            [
+                Query.equal('user_id', userId),
+                Query.orderDesc("$id")
             ]
         );
         const documents = response.documents;
@@ -14,7 +15,9 @@ const UseGetLikesByPostId = async (postId: string) => {
             return { 
                 id: doc?.$id, 
                 user_id: doc?.user_id,
-                post_id: doc?.post_id
+                video_url: doc?.video_url,
+                text: doc?.text,
+                created_at: doc?.created_at,
             }
         })
         
@@ -24,4 +27,4 @@ const UseGetLikesByPostId = async (postId: string) => {
     }
 }
 
-export default UseGetLikesByPostId
+export default UseGetPostsByUserId

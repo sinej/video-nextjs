@@ -5,7 +5,7 @@ import {BiLoaderCircle} from "react-icons/bi";
 import { useRouter } from "next/navigation";
 import {FaCommentDots, FaShare} from "react-icons/fa";
 import {useGeneralStore} from "@/app/stores/general";
-import {UseUser} from "@/app/context/user";
+import {useUser} from "@/app/context/user";
 import UseGetCommentsByPostId from "@/app/hooks/useGetCommentsByPostId";
 import UseGetLikesByPostId from "@/app/hooks/useGetLikesByPostId";
 import UseCreateLike from "@/app/hooks/useCreateLike";
@@ -17,7 +17,7 @@ const PostMainLikes = (props: PostMainLikesCompTypes) => {
 
     let { setIsLoginOpen } = useGeneralStore();
     const { push } = useRouter();
-    const contextUser = UseUser();
+    const contextUser = useUser();
     const [hasClickedLike, setHasClickedLike] = useState<boolean>(false);
     const [userLiked, setUserLiked] = useState<boolean>(false);
     const [comments, setComments] = useState<Comment[]>([]);

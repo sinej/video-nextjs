@@ -1,10 +1,10 @@
 import { create } from 'zustand';
 import { persist, devtools, createJSONStorage } from 'zustand/middleware';
-import UseGetAllPosts from "@/app/hooks/useGetAllPosts";
-import UseGetPostsByUser from "@/app/hooks/useGetPostsByUser";
-import UseGetPostById from "@/app/hooks/useGetPostById";
-import {Post, PostWithProfile} from "@/app/types/type";
-
+import { Post, PostWithProfile } from '../types';
+import UseGetAllPosts from '../hooks/useGetAllPosts';
+import UseGetPostsByUserId from '../hooks/useGetPostsByUserId';
+import UseGetPostById from '../hooks/useGetPostById';
+  
 interface PostStore {
     allPosts: PostWithProfile[];
     postsByUser: Post[];
@@ -14,7 +14,7 @@ interface PostStore {
     setPostById: (postId: string) => void;
 }
 
-export const usePostStore = create<PostStore>()(
+export const usePostStore = create<PostStore>()( 
     devtools(
         persist(
             (set) => ({
@@ -27,7 +27,7 @@ export const usePostStore = create<PostStore>()(
                     set({ allPosts: result });
                 },
                 setPostsByUser: async (userId: string) => {
-                    const result = await UseGetPostsByUser(userId)
+                    const result = await UseGetPostsByUserId(userId)
                     set({ postsByUser: result });
                 },
                 setPostById: async (postId: string) => {
@@ -35,9 +35,9 @@ export const usePostStore = create<PostStore>()(
                     set({ postById: result })
                 },
             }),
-            {
-                name: 'store',
-                storage: createJSONStorage(() => localStorage)
+            { 
+                name: 'store', 
+                storage: createJSONStorage(() => localStorage) 
             }
         )
     )

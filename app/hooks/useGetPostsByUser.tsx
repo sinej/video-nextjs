@@ -1,4 +1,4 @@
-import {database, Query} from "@/libs/appWriteClient";
+import {database, Query} from "@/libs/AppWriteClient";
 
 const UseGetPostsByUser = async (userId: string) => {
 
